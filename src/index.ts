@@ -7,6 +7,7 @@ import {
   ensureSheetHeaders,
   formatSheet,
 } from "./trigger/gotfriends-scraper/google-sheets.js";
+import { scrapeHireMeTechJobs } from "./scrapers/hiremetech/scrape.js";
 
 // Search terms in Hebrew and English
 const SEARCH_TERMS = [
@@ -18,8 +19,8 @@ const LOCATION_KEYWORDS = [
   "חיפה והצפון",
 ];
 
-async function scrapeGotFriendsJobs() {
-  console.log("🚀 Starting GotFriends job scraper...");
+async function scrapeAllJobs() {
+  console.log("🚀 Starting job scraper (GotFriends + HireMeTech)...");
 
   // Validate environment variables
   const sheetId = process.env.GOOGLE_SHEET_ID;
@@ -41,8 +42,8 @@ async function scrapeGotFriendsJobs() {
   const existingIds = await getExistingJobIds(sheetsConfig);
   console.log(`📋 Found ${existingIds.size} existing jobs in sheet`);
 
-  // Scrape all jobs from Haifa region
-  const newListings: JobListing[] = [];
+  // Scrape all jobs from all sources
+  let newListings: JobListing[] = [];
 
   try {
     // Fetch page 1 to get total count
@@ -114,6 +115,24 @@ async function scrapeGotFriendsJobs() {
       await new Promise((resolve) => setTimeout(resolve, 500));
     }
 
+    // Scrape HireMeTech
+    console.log("\n📱 Now scraping HireMeTech...");
+    try {
+      const hireMeTechJobs = await scrapeHireMeTechJobs("מנהל מוצר", "חיפה והצפון");
+
+      // Filter out duplicates and add to listings
+      for (const job of hireMeTechJobs) {
+        if (!existingIds.has(job.positionId) && !newListings.some((l) => l.positionId === job.positionId)) {
+          newListings.push(job);
+        }
+      }
+
+      console.log(`✅ HireMeTech: Found ${hireMeTechJobs.length} jobs, added ${hireMeTechJobs.filter(j => !existingIds.has(j.positionId)).length} new ones`);
+    } catch (error) {
+      console.error("Error scraping HireMeTech:", error);
+      // Continue even if HireMeTech fails
+    }
+
     // Append new listings to sheet
     if (newListings.length > 0) {
       const appended = await appendJobListings(sheetsConfig, newListings);
@@ -178,7 +197,7 @@ function extractTotalPages(html: string): number {
 }
 
 // Run the scraper
-scrapeGotFriendsJobs().catch((error) => {
+scrapeAllJobs().catch((error) => {
   console.error("Fatal error:", error);
   process.exit(1);
 });
