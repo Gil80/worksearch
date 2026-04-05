@@ -12,6 +12,10 @@ import { scrapeHireMeTechJobs } from "./scrapers/hiremetech/scrape.js";
 // Search terms in Hebrew and English
 const SEARCH_TERMS = [
   "מנהל מוצר",
+  "product manager",
+  "מנהל פרויקטים",
+  "project manager",
+  "pm",
 ];
 
 // Haifa and surrounding areas
