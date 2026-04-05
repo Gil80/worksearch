@@ -10,44 +10,12 @@ import {
 
 // Search terms in Hebrew and English
 const SEARCH_TERMS = [
-  // Project Manager variants
-  "מנהל פרויקטים",
-  "project manager",
-  "pm",
-  // Technical Project Manager
-  "מנהל פרויקטים טכני",
-  "technical project manager",
-  "tech pm",
-  // Release Management
-  "מנהל שחרורים",
-  "release manager",
-  "release coordinator",
-  "release management",
-  // Scrum Master
-  "סקראם מאסטר",
-  "scrum master",
-  "scrum",
-  // Program Manager
-  "מנהל תוכנית",
-  "program manager",
-  // Delivery Manager
-  "delivery manager",
-  "מנהל משלוח",
-  // PMO
-  "pmo",
-  "משרד ניהול פרויקטים",
+  "מנהל מוצר",
 ];
 
 // Haifa and surrounding areas
 const LOCATION_KEYWORDS = [
-  "חיפה",
-  "haifa",
-  "יקנעם",
-  "yokneam",
-  "צפון",
-  "north",
-  "קריות",
-  "kiryat",
+  "חיפה והצפון",
 ];
 
 async function scrapeGotFriendsJobs() {
