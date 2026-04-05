@@ -152,7 +152,9 @@ function extractRequirements($: cheerio.CheerioAPI): string {
 function extractDescription($: cheerio.CheerioAPI): string {
   // Look for description section
   const desc = $("[class*='description'], [class*='content'], article, [role='main']").text().trim();
-  return desc || $.text().trim();
+  const result = desc || $.text().trim();
+  // Limit to first 2000 chars to avoid memory bloat
+  return result.slice(0, 2000);
 }
 
 function extractLocationFromText(text: string): string {

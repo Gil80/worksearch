@@ -85,8 +85,8 @@ export const scrapeGotFriendsJobs = task({
 
       console.log(`📄 Scraping ${totalPages} pages of results...`);
 
-      // Scrape all pages (limit to 10 pages to avoid memory issues)
-      const pagesToScrape = Math.min(totalPages, 10);
+      // Scrape all pages (limit to 2 pages for now to test memory)
+      const pagesToScrape = Math.min(totalPages, 2);
 
       for (let page = 1; page <= pagesToScrape; page++) {
         const html = await fetchPage(page);
