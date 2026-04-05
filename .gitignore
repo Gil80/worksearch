@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+*:Zone.Identifier
+.claude/settings.local.json
+.gcp-key.json

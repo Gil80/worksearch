@@ -1,0 +1,18 @@
+{
+  "name": "worksearch",
+  "version": "1.0.0",
+  "description": "Trigger.dev automations for work search",
+  "scripts": {
+    "dev": "npx trigger.dev@latest dev",
+    "deploy": "npx trigger.dev@latest deploy"
+  },
+  "dependencies": {
+    "@trigger.dev/sdk": "^4.4.3",
+    "cheerio": "^1.2.0",
+    "googleapis": "^171.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "typescript": "^6.0.2"
+  }
+}
