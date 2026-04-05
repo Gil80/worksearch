@@ -1,18 +1,19 @@
 {
   "name": "worksearch",
   "version": "1.0.0",
-  "description": "Trigger.dev automations for work search",
+  "description": "Job scraper for GotFriends.co.il",
+  "type": "module",
   "scripts": {
-    "dev": "npx trigger.dev@latest dev",
-    "deploy": "npx trigger.dev@latest deploy"
+    "scrape": "node --loader ts-node/esm src/index.ts"
   },
   "dependencies": {
-    "@trigger.dev/sdk": "^4.4.3",
     "cheerio": "^1.2.0",
+    "dotenv": "^17.4.0",
     "googleapis": "^171.4.0"
   },
   "devDependencies": {
     "@types/node": "^25.5.2",
+    "ts-node": "^10.9.2",
     "typescript": "^6.0.2"
   }
 }
